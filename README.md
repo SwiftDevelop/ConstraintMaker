@@ -25,6 +25,24 @@
 
 ---
 
+## 📦 설치 방법 (Installation)
+
+### Swift Package Manager (SPM)
+
+Xcode에서 **File > Add Package Dependencies...** 를 선택한 후 아래 Repository URL을 입력하여 프로젝트에 추가합니다.
+
+```text
+https://github.com/SwiftDevelop/ConstraintMaker.git
+```
+
+사용하려는 파일 상단에서 모듈을 `import` 합니다:
+
+```swift
+import ConstraintMaker
+```
+
+---
+
 ## 🚀 사용법 (Usage)
 
 ### 1. 제약 조건 생성 (`makeConstraint`)

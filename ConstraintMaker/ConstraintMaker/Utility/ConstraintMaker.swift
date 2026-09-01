@@ -8,12 +8,12 @@
 import UIKit
 
 /// UIView의 Auto Layout 제약 조건을 체이닝 방식으로 생성, 업데이트, 재설정할 수 있도록 돕는 유틸리티 클래스입니다.
-final class ConstraintMaker {
+public final class ConstraintMaker {
     
     // MARK: - Enums
     
     /// 제약 조건 생성 동작 모드
-    enum ActionType {
+    public enum ActionType {
         /// 새로운 제약 조건 추가
         case make
         /// 기존 제약 조건의 constant 업데이트
@@ -23,7 +23,7 @@ final class ConstraintMaker {
     }
     
     /// 처리할 제약 조건 동작 정보
-    enum ConstraintAction {
+    public enum ConstraintAction {
         /// 상단 제약 조건 (상대 Anchor, constant, priority)
         case top(anchor: NSLayoutYAxisAnchor?, constant: CGFloat, priority: UILayoutPriority)
         /// 하단 제약 조건 (상대 Anchor, constant, priority)
@@ -57,7 +57,7 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - view: 제약 조건을 적용할 UIView
     ///   - mode: 제약 조건 동작 모드 (.make, .update, .remake)
-    init(view: UIView, mode: ActionType) {
+    public init(view: UIView, mode: ActionType) {
         self.view = view
         self.mode = mode
     }
@@ -71,7 +71,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func top(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func top(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.top(anchor: nil, constant: constant, priority: priority))
         return self
     }
@@ -82,7 +82,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func top(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func top(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.top(anchor: anchor, constant: constant, priority: priority))
         return self
     }
@@ -94,7 +94,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func bottom(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func bottom(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.bottom(anchor: nil, constant: constant, priority: priority))
         return self
     }
@@ -105,7 +105,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func bottom(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func bottom(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.bottom(anchor: anchor, constant: constant, priority: priority))
         return self
     }
@@ -117,7 +117,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func leading(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func leading(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.leading(anchor: nil, constant: constant, priority: priority))
         return self
     }
@@ -128,7 +128,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func leading(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func leading(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.leading(anchor: anchor, constant: constant, priority: priority))
         return self
     }
@@ -140,7 +140,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func trailing(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func trailing(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.trailing(anchor: nil, constant: constant, priority: priority))
         return self
     }
@@ -151,7 +151,7 @@ final class ConstraintMaker {
     ///   - constant: 여백 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func trailing(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func trailing(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.trailing(anchor: anchor, constant: constant, priority: priority))
         return self
     }
@@ -163,7 +163,7 @@ final class ConstraintMaker {
     ///   - constant: 상하좌우 여백 크기 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func edges(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func edges(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.top(anchor: nil, constant: constant, priority: priority))
         targets.append(.bottom(anchor: nil, constant: -constant, priority: priority))
         targets.append(.leading(anchor: nil, constant: constant, priority: priority))
@@ -177,7 +177,7 @@ final class ConstraintMaker {
     ///   - vertical: 수직(상하) 여백
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func edges(horizontal: CGFloat = 0, vertical: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func edges(horizontal: CGFloat = 0, vertical: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.top(anchor: nil, constant: vertical, priority: priority))
         targets.append(.bottom(anchor: nil, constant: -vertical, priority: priority))
         targets.append(.leading(anchor: nil, constant: horizontal, priority: priority))
@@ -192,7 +192,7 @@ final class ConstraintMaker {
     ///   - constant: 상하좌우 여백 크기 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func edgesToSafeArea(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func edgesToSafeArea(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         guard let superview = view?.superview else { return self }
         let guide = superview.safeAreaLayoutGuide
         targets.append(.top(anchor: guide.topAnchor, constant: constant, priority: priority))
@@ -208,7 +208,7 @@ final class ConstraintMaker {
     ///   - vertical: 수직(상하) 여백
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func edgesToSafeArea(horizontal: CGFloat = 0, vertical: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func edgesToSafeArea(horizontal: CGFloat = 0, vertical: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         guard let superview = view?.superview else { return self }
         let guide = superview.safeAreaLayoutGuide
         targets.append(.top(anchor: guide.topAnchor, constant: vertical, priority: priority))
@@ -225,7 +225,7 @@ final class ConstraintMaker {
     ///   - constant: 수평 오프셋 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerX(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func centerX(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.centerX(anchor: nil, constant: constant, priority: priority))
         return self
     }
@@ -236,7 +236,7 @@ final class ConstraintMaker {
     ///   - constant: 수평 오프셋 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerX(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func centerX(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.centerX(anchor: anchor, constant: constant, priority: priority))
         return self
     }
@@ -248,7 +248,7 @@ final class ConstraintMaker {
     ///   - constant: 수직 오프셋 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerY(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func centerY(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.centerY(anchor: nil, constant: constant, priority: priority))
         return self
     }
@@ -259,7 +259,7 @@ final class ConstraintMaker {
     ///   - constant: 수직 오프셋 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerY(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func centerY(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.centerY(anchor: anchor, constant: constant, priority: priority))
         return self
     }
@@ -269,7 +269,7 @@ final class ConstraintMaker {
     /// Superview의 수평 및 수직 중앙에 뷰를 정렬시킵니다.
     /// - Parameter priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func center(priority: UILayoutPriority = .required) -> Self {
+    public func center(priority: UILayoutPriority = .required) -> Self {
         targets.append(.centerX(anchor: nil, constant: 0, priority: priority))
         targets.append(.centerY(anchor: nil, constant: 0, priority: priority))
         return self
@@ -284,7 +284,7 @@ final class ConstraintMaker {
     ///   - constant: 추가 크기 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func width(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func width(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.width(relation: .equal, anchor: anchor, multiplier: multiplier, constant: constant, priority: priority))
         return self
     }
@@ -294,7 +294,7 @@ final class ConstraintMaker {
     ///   - constant: 너비 크기 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func width(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func width(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.width(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
@@ -305,7 +305,7 @@ final class ConstraintMaker {
     ///   - constant: 너비 크기
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func width(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+    public func width(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
         targets.append(.width(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
@@ -319,7 +319,7 @@ final class ConstraintMaker {
     ///   - constant: 추가 크기 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func height(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func height(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.height(relation: .equal, anchor: anchor, multiplier: multiplier, constant: constant, priority: priority))
         return self
     }
@@ -329,7 +329,7 @@ final class ConstraintMaker {
     ///   - constant: 높이 크기 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func height(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func height(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.height(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
@@ -340,7 +340,7 @@ final class ConstraintMaker {
     ///   - constant: 높이 크기
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func height(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+    public func height(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
         targets.append(.height(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
@@ -352,7 +352,7 @@ final class ConstraintMaker {
     ///   - constant: 너비 및 높이 크기
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func size(_ constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+    public func size(_ constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
         targets.append(.width(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         targets.append(.height(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
@@ -364,7 +364,7 @@ final class ConstraintMaker {
     ///   - constant: 너비 및 높이 크기
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func size(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+    public func size(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
         targets.append(.width(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         targets.append(.height(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
@@ -376,7 +376,7 @@ final class ConstraintMaker {
     ///   - constant: 추가 오프셋 크기 (기본값: 0)
     ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func sizeToFill(multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+    public func sizeToFill(multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
         targets.append(.width(relation: .equal, anchor: view?.superview?.widthAnchor, multiplier: multiplier, constant: constant, priority: priority))
         targets.append(.height(relation: .equal, anchor: view?.superview?.heightAnchor, multiplier: multiplier, constant: constant, priority: priority))
         return self
@@ -386,7 +386,7 @@ final class ConstraintMaker {
     
     /// 체이닝으로 쌓은 제약 조건 체인을 실행 및 활성화합니다.
     /// - Parameter isActive: 제약 조건 활성화 여부 (기본값: true)
-    func active(_ isActive: Bool = true) {
+    public func active(_ isActive: Bool = true) {
         guard let view = view else { return }
         
         if mode == .remake {
@@ -583,7 +583,7 @@ final class ConstraintMaker {
 
 // MARK: - Extensions
 
-extension UIView {
+public extension UIView {
     /// 새로운 Auto Layout 제약 조건을 생성하기 위한 ConstraintMaker 인스턴스를 반환합니다.
     /// (translatesAutoresizingMaskIntoConstraints = false 자동 적용)
     var makeConstraint: ConstraintMaker {
