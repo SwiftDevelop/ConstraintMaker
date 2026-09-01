@@ -131,25 +131,19 @@ exampleView.makeConstraint
 
 ```text
 ConstraintMaker
-├── Application
-│   ├── AppDelegate.swift
-│   └── SceneDelegate.swift
-├── Utility
-│   └── ConstraintMaker.swift       # ConstraintMaker 핵심 엔진 및 UIView Extension
-└── View
-    ├── MainViewController.swift    # 예제 목록 뷰 컨트롤러
-    ├── ExampleViewController.swift # 예제 공통 베이스 컨트롤러
-    └── Examples                    # 다양한 레이아웃 시나리오별 예제 코드
-        ├── Active.swift
-        ├── Center.swift
-        ├── Edges.swift
-        ├── Edges2.swift
-        ├── Size.swift
-        ├── Size2.swift
-        ├── Size3.swift
-        ├── Update.swift
-        ├── Remake.swift
-        └── Priority.swift
+├── Package.swift                   # SPM 패키지 매니페스트
+├── Sources                         # SPM 패키지 소스 코드 (라이브러리 타겟)
+│   └── ConstraintMaker
+│       ├── ConstraintMaker.swift      # 핵심 레이아웃 엔진 클래스
+│       └── UIView+ConstraintMaker.swift # UIView 확장 프로퍼티 및 메서드
+└── ConstraintMaker                 # 예제 앱 프로젝트
+    ├── Application
+    │   ├── AppDelegate.swift
+    │   └── SceneDelegate.swift
+    └── View
+        ├── MainViewController.swift    # 예제 목록 뷰 컨트롤러
+        ├── ExampleViewController.swift # 예제 베이스 컨트롤러
+        └── Examples                    # 다양한 레이아웃 시나리오별 예제 코드
 ```
 
 ---
