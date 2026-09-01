@@ -12,7 +12,8 @@
   - `makeConstraint`: 신규 제약 조건 생성 및 적용
   - `updateConstraint`: 기존 제약 조건의 `constant` 값 업데이트
   - `remakeConstraint`: 기존 제약 조건을 모두 제거하고 새로운 제약 조건 재설정
-- **풍부한 헬퍼 메서드**: `edges`, `center`, `size`, `horizontal`, `vertical`, `sizeToFill` 등 자주 쓰이는 레이아웃 패턴 지원
+- **풍부한 헬퍼 메서드**: `edges`, `edgesToSafeArea`, `center`, `size`, `sizeToFill` 등 자주 쓰이는 레이아웃 패턴 지원
+- **우선순위(Priority) 개별 지정**: 파라미터 옵션으로 각 제약 조건별 `priority` 개별 조절 지원 (기본값: `.required`)
 
 ---
 
@@ -38,7 +39,8 @@ redView.makeConstraint
 // Anchor 및 Constant 지정
 blueView.makeConstraint
     .top(redView.bottomAnchor, constant: 20)
-    .horizontal(16)
+    .leading(16)
+    .trailing(-16)
     .height(50)
     .active()
 ```
@@ -59,6 +61,11 @@ subview.makeConstraint
 // Horizontal, Vertical 패딩 각각 지정
 subview.makeConstraint
     .edges(horizontal: 20, vertical: 10)
+    .active()
+
+// Superview의 Safe Area 기준 전체 여백 맞춤 (16pt 인셋)
+subview.makeConstraint
+    .edgesToSafeArea(16)
     .active()
 ```
 
@@ -87,6 +94,19 @@ exampleView.remakeConstraint
     .active()
 ```
 
+### 5. 제약 조건 우선순위 지정 (`priority`)
+
+각 메서드의 optional 파라미터로 `priority`를 개별적으로 지정할 수 있습니다 (기본값: `.required`).
+
+```swift
+// 각 조건별 개별 우선순위(Priority) 지정
+exampleView.makeConstraint
+    .top(20)                                // 기본값: .required (1000)
+    .leading(16, priority: .defaultHigh)   // priority: .defaultHigh (750)
+    .height(100, priority: .defaultLow)    // priority: .defaultLow (250)
+    .active()
+```
+
 ---
 
 ## 📂 프로젝트 구조 (Project Structure)
@@ -106,12 +126,12 @@ ConstraintMaker
         ├── Center.swift
         ├── Edges.swift
         ├── Edges2.swift
-        ├── Edges3.swift
         ├── Size.swift
         ├── Size2.swift
         ├── Size3.swift
         ├── Update.swift
-        └── Remake.swift
+        ├── Remake.swift
+        └── Priority.swift
 ```
 
 ---
