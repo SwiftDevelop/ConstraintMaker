@@ -15,13 +15,13 @@ final class MainViewController: UIViewController {
         ActiveExample(),
         EdgesExample(),
         EdgesExample2(),
-        EdgesExample3(),
         CenterExample(),
         SizeExample(),
         SizeExample2(),
         SizeExample3(),
         UpdateExample(),
         RemakeExample(),
+        PriorityExample(),
     ]
     
     // MARK: - UI Components

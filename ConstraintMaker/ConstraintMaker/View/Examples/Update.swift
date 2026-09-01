@@ -41,7 +41,8 @@ final class UpdateExample: ExampleViewController {
         
         updateButton.makeConstraint
             .bottom(view.safeAreaLayoutGuide.bottomAnchor)
-            .horizontal(16)
+            .leading(16)
+            .trailing(-16)
             .height(48)
             .active()
     }

@@ -33,13 +33,15 @@ final class ActiveExample: ExampleViewController {
     override func setupUIConstraints() {
         activeView.makeConstraint
             .top()
-            .horizontal()
+            .leading()
+            .trailing()
             .height(view.heightAnchor, multiplier: 0.5)
             .active() // default is true.
         
         unactiveView.makeConstraint
             .bottom()
-            .horizontal()
+            .leading()
+            .trailing()
             .height(view.heightAnchor, multiplier: 0.5)
             .active(false)
     }

@@ -25,11 +25,10 @@ final class EdgesExample: ExampleViewController {
     
     override func setupUIConstraints() {
         exampleView.makeConstraint
-//            .edges() // top: 0, leading: 0, bottom: 0, trailing: 0
-//            .edges(32) // top: 32, leading: 32, bottom: -32, trailing: -32
-//            .edges(horizontal: 32) // top: 0, leading: 32, bottom: 0, trailing: -32
-//            .edges(vertical: 32) // top: 32, leading: 0, bottom: -32, trailing: 0
-            .edges(horizontal: 32, vertical: 64) // top: 64, leading: 32, bottom: -64, trailing: -32
+//            .edges() // anchor: superview, top: 0, leading: 0, bottom: 0, trailing: 0
+//            .edges(32) // anchor: superview, top: 32, leading: 32, bottom: -32, trailing: -32
+//            .edgesToSafeArea() // anchor: safeArea, top: 0, leading: 0, bottom: 0, trailing: 0
+            .edgesToSafeArea(32) // anchor: safeArea, top: 32, leading: 32, bottom: -32, trailing: -32
             .active()
     }
 }

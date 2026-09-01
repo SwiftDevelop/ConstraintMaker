@@ -24,22 +24,22 @@ final class ConstraintMaker {
     
     /// 처리할 제약 조건 동작 정보
     enum ConstraintAction {
-        /// 상단 제약 조건 (상대 Anchor, constant)
-        case top(anchor: NSLayoutYAxisAnchor?, constant: CGFloat)
-        /// 하단 제약 조건 (상대 Anchor, constant)
-        case bottom(anchor: NSLayoutYAxisAnchor?, constant: CGFloat)
-        /// 좌측(Leading) 제약 조건 (상대 Anchor, constant)
-        case leading(anchor: NSLayoutXAxisAnchor?, constant: CGFloat)
-        /// 우측(Trailing) 제약 조건 (상대 Anchor, constant)
-        case trailing(anchor: NSLayoutXAxisAnchor?, constant: CGFloat)
-        /// 수평 중앙 제약 조건 (상대 Anchor, constant)
-        case centerX(anchor: NSLayoutXAxisAnchor?, constant: CGFloat)
-        /// 수직 중앙 제약 조건 (상대 Anchor, constant)
-        case centerY(anchor: NSLayoutYAxisAnchor?, constant: CGFloat)
-        /// 너비 제약 조건 (관계, 상대 Anchor, multiplier, constant)
-        case width(relation: NSLayoutConstraint.Relation, anchor: NSLayoutDimension?, multiplier: CGFloat, constant: CGFloat)
-        /// 높이 제약 조건 (관계, 상대 Anchor, multiplier, constant)
-        case height(relation: NSLayoutConstraint.Relation, anchor: NSLayoutDimension?, multiplier: CGFloat, constant: CGFloat)
+        /// 상단 제약 조건 (상대 Anchor, constant, priority)
+        case top(anchor: NSLayoutYAxisAnchor?, constant: CGFloat, priority: UILayoutPriority)
+        /// 하단 제약 조건 (상대 Anchor, constant, priority)
+        case bottom(anchor: NSLayoutYAxisAnchor?, constant: CGFloat, priority: UILayoutPriority)
+        /// 좌측(Leading) 제약 조건 (상대 Anchor, constant, priority)
+        case leading(anchor: NSLayoutXAxisAnchor?, constant: CGFloat, priority: UILayoutPriority)
+        /// 우측(Trailing) 제약 조건 (상대 Anchor, constant, priority)
+        case trailing(anchor: NSLayoutXAxisAnchor?, constant: CGFloat, priority: UILayoutPriority)
+        /// 수평 중앙 제약 조건 (상대 Anchor, constant, priority)
+        case centerX(anchor: NSLayoutXAxisAnchor?, constant: CGFloat, priority: UILayoutPriority)
+        /// 수직 중앙 제약 조건 (상대 Anchor, constant, priority)
+        case centerY(anchor: NSLayoutYAxisAnchor?, constant: CGFloat, priority: UILayoutPriority)
+        /// 너비 제약 조건 (관계, 상대 Anchor, multiplier, constant, priority)
+        case width(relation: NSLayoutConstraint.Relation, anchor: NSLayoutDimension?, multiplier: CGFloat, constant: CGFloat, priority: UILayoutPriority)
+        /// 높이 제약 조건 (관계, 상대 Anchor, multiplier, constant, priority)
+        case height(relation: NSLayoutConstraint.Relation, anchor: NSLayoutDimension?, multiplier: CGFloat, constant: CGFloat, priority: UILayoutPriority)
     }
     
     // MARK: - Properties
@@ -67,10 +67,12 @@ final class ConstraintMaker {
     // MARK: Top
     
     /// Superview의 Top Anchor를 기준으로 제약 조건을 설정합니다.
-    /// - Parameter constant: 여백 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func top(_ constant: CGFloat = 0) -> Self {
-        targets.append(.top(anchor: nil, constant: constant))
+    func top(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.top(anchor: nil, constant: constant, priority: priority))
         return self
     }
     
@@ -78,38 +80,45 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - anchor: 기준이 될 NSLayoutYAxisAnchor
     ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func top(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0) -> Self {
-        targets.append(.top(anchor: anchor, constant: constant))
+    func top(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.top(anchor: anchor, constant: constant, priority: priority))
         return self
     }
     
     // MARK: Bottom
     
     /// Superview의 Bottom Anchor를 기준으로 제약 조건을 설정합니다.
-    /// - Parameter constant: 여백 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func bottom(_ constant: CGFloat = 0) -> Self {
-        targets.append(.bottom(anchor: nil, constant: constant))
+    func bottom(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.bottom(anchor: nil, constant: constant, priority: priority))
         return self
     }
     
     /// 지정한 Y축 Anchor를 기준으로 Bottom 제약 조건을 설정합니다.
-    /// - Parameters: 
+    /// - Parameters:
+    ///   - anchor: 기준이 될 NSLayoutYAxisAnchor
     ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func bottom(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0) -> Self {
-        targets.append(.bottom(anchor: anchor, constant: constant))
+    func bottom(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.bottom(anchor: anchor, constant: constant, priority: priority))
         return self
     }
     
     // MARK: Leading
     
     /// Superview의 Leading Anchor를 기준으로 제약 조건을 설정합니다.
-    /// - Parameter constant: 여백 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func leading(_ constant: CGFloat = 0) -> Self {
-        targets.append(.leading(anchor: nil, constant: constant))
+    func leading(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.leading(anchor: nil, constant: constant, priority: priority))
         return self
     }
     
@@ -117,19 +126,22 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - anchor: 기준이 될 NSLayoutXAxisAnchor
     ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func leading(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0) -> Self {
-        targets.append(.leading(anchor: anchor, constant: constant))
+    func leading(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.leading(anchor: anchor, constant: constant, priority: priority))
         return self
     }
     
     // MARK: Trailing
     
     /// Superview의 Trailing Anchor를 기준으로 제약 조건을 설정합니다.
-    /// - Parameter constant: 여백 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func trailing(_ constant: CGFloat = 0) -> Self {
-        targets.append(.trailing(anchor: nil, constant: constant))
+    func trailing(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.trailing(anchor: nil, constant: constant, priority: priority))
         return self
     }
     
@@ -137,44 +149,25 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - anchor: 기준이 될 NSLayoutXAxisAnchor
     ///   - constant: 여백 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func trailing(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0) -> Self {
-        targets.append(.trailing(anchor: anchor, constant: constant))
-        return self
-    }
-    
-    // MARK: Horizontal(Leading & Trailing)
-    
-    /// Superview를 기준으로 좌우(Leading, Trailing) 양쪽에 인셋 여백을 설정합니다.
-    /// - Parameter constant: 좌우 여백 크기 (Trailing은 자동으로 음수 처리됨)
-    @discardableResult
-    func horizontal(_ constant: CGFloat = 0) -> Self {
-        targets.append(.leading(anchor: nil, constant: constant))
-        targets.append(.trailing(anchor: nil, constant: -constant))
-        return self
-    }
-    
-    // MARK: Vertical(Top & Bottom)
-    
-    /// Superview를 기준으로 상하(Top, Bottom) 양쪽에 인셋 여백을 설정합니다.
-    /// - Parameter constant: 상하 여백 크기 (Bottom은 자동으로 음수 처리됨)
-    @discardableResult
-    func vertical(_ constant: CGFloat = 0) -> Self {
-        targets.append(.top(anchor: nil, constant: constant))
-        targets.append(.bottom(anchor: nil, constant: -constant))
+    func trailing(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.trailing(anchor: anchor, constant: constant, priority: priority))
         return self
     }
     
     // MARK: Edges
     
     /// Superview를 기준으로 상하좌우 전체 여백을 동일하게 설정합니다.
-    /// - Parameter constant: 상하좌우 여백 크기 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 상하좌우 여백 크기 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func edges(_ constant: CGFloat = 0) -> Self {
-        targets.append(.top(anchor: nil, constant: constant))
-        targets.append(.bottom(anchor: nil, constant: -constant))
-        targets.append(.leading(anchor: nil, constant: constant))
-        targets.append(.trailing(anchor: nil, constant: -constant))
+    func edges(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.top(anchor: nil, constant: constant, priority: priority))
+        targets.append(.bottom(anchor: nil, constant: -constant, priority: priority))
+        targets.append(.leading(anchor: nil, constant: constant, priority: priority))
+        targets.append(.trailing(anchor: nil, constant: -constant, priority: priority))
         return self
     }
     
@@ -182,22 +175,58 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - horizontal: 수평(좌우) 여백
     ///   - vertical: 수직(상하) 여백
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func edges(horizontal: CGFloat = 0, vertical: CGFloat = 0) -> Self {
-        targets.append(.top(anchor: nil, constant: vertical))
-        targets.append(.bottom(anchor: nil, constant: -vertical))
-        targets.append(.leading(anchor: nil, constant: horizontal))
-        targets.append(.trailing(anchor: nil, constant: -horizontal))
+    func edges(horizontal: CGFloat = 0, vertical: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.top(anchor: nil, constant: vertical, priority: priority))
+        targets.append(.bottom(anchor: nil, constant: -vertical, priority: priority))
+        targets.append(.leading(anchor: nil, constant: horizontal, priority: priority))
+        targets.append(.trailing(anchor: nil, constant: -horizontal, priority: priority))
+        return self
+    }
+    
+    // MARK: EdgesToSafeArea
+    
+    /// Superview의 Safe Area Layout Guide를 기준으로 상하좌우 전체 여백을 동일하게 설정합니다.
+    /// - Parameters:
+    ///   - constant: 상하좌우 여백 크기 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
+    @discardableResult
+    func edgesToSafeArea(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        guard let superview = view?.superview else { return self }
+        let guide = superview.safeAreaLayoutGuide
+        targets.append(.top(anchor: guide.topAnchor, constant: constant, priority: priority))
+        targets.append(.bottom(anchor: guide.bottomAnchor, constant: -constant, priority: priority))
+        targets.append(.leading(anchor: guide.leadingAnchor, constant: constant, priority: priority))
+        targets.append(.trailing(anchor: guide.trailingAnchor, constant: -constant, priority: priority))
+        return self
+    }
+    
+    /// Superview의 Safe Area Layout Guide를 기준으로 수평/수직 여백을 각각 설정합니다.
+    /// - Parameters:
+    ///   - horizontal: 수평(좌우) 여백
+    ///   - vertical: 수직(상하) 여백
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
+    @discardableResult
+    func edgesToSafeArea(horizontal: CGFloat = 0, vertical: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        guard let superview = view?.superview else { return self }
+        let guide = superview.safeAreaLayoutGuide
+        targets.append(.top(anchor: guide.topAnchor, constant: vertical, priority: priority))
+        targets.append(.bottom(anchor: guide.bottomAnchor, constant: -vertical, priority: priority))
+        targets.append(.leading(anchor: guide.leadingAnchor, constant: horizontal, priority: priority))
+        targets.append(.trailing(anchor: guide.trailingAnchor, constant: -horizontal, priority: priority))
         return self
     }
     
     // MARK: CenterX
     
     /// Superview의 CenterX Anchor를 기준으로 수평 중앙을 설정합니다.
-    /// - Parameter constant: 수평 오프셋 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 수평 오프셋 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerX(_ constant: CGFloat = 0) -> Self {
-        targets.append(.centerX(anchor: nil, constant: constant))
+    func centerX(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.centerX(anchor: nil, constant: constant, priority: priority))
         return self
     }
     
@@ -205,19 +234,22 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - anchor: 기준이 될 NSLayoutXAxisAnchor
     ///   - constant: 수평 오프셋 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerX(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0) -> Self {
-        targets.append(.centerX(anchor: anchor, constant: constant))
+    func centerX(_ anchor: NSLayoutXAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.centerX(anchor: anchor, constant: constant, priority: priority))
         return self
     }
     
     // MARK: CenterY
     
     /// Superview의 CenterY Anchor를 기준으로 수직 중앙을 설정합니다.
-    /// - Parameter constant: 수직 오프셋 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 수직 오프셋 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerY(_ constant: CGFloat = 0) -> Self {
-        targets.append(.centerY(anchor: nil, constant: constant))
+    func centerY(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.centerY(anchor: nil, constant: constant, priority: priority))
         return self
     }
     
@@ -225,19 +257,21 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - anchor: 기준이 될 NSLayoutYAxisAnchor
     ///   - constant: 수직 오프셋 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func centerY(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0) -> Self {
-        targets.append(.centerY(anchor: anchor, constant: constant))
+    func centerY(_ anchor: NSLayoutYAxisAnchor?, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.centerY(anchor: anchor, constant: constant, priority: priority))
         return self
     }
     
     // MARK: Center
     
     /// Superview의 수평 및 수직 중앙에 뷰를 정렬시킵니다.
+    /// - Parameter priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func center() -> Self {
-        targets.append(.centerX(anchor: nil, constant: 0))
-        targets.append(.centerY(anchor: nil, constant: 0))
+    func center(priority: UILayoutPriority = .required) -> Self {
+        targets.append(.centerX(anchor: nil, constant: 0, priority: priority))
+        targets.append(.centerY(anchor: nil, constant: 0, priority: priority))
         return self
     }
     
@@ -248,17 +282,20 @@ final class ConstraintMaker {
     ///   - anchor: 기준이 될 NSLayoutDimension
     ///   - multiplier: 비율 (기본값: 1.0)
     ///   - constant: 추가 크기 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func width(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> Self {
-        targets.append(.width(relation: .equal, anchor: anchor, multiplier: multiplier, constant: constant))
+    func width(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.width(relation: .equal, anchor: anchor, multiplier: multiplier, constant: constant, priority: priority))
         return self
     }
     
     /// 고정된 너비 크기를 설정합니다.
-    /// - Parameter constant: 너비 크기 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 너비 크기 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func width(_ constant: CGFloat = 0) -> Self {
-        targets.append(.width(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant))
+    func width(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.width(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
     
@@ -266,9 +303,10 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - relation: 제약 조건 관계 (NSLayoutConstraint.Relation)
     ///   - constant: 너비 크기
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func width(_ relation: NSLayoutConstraint.Relation, constant: CGFloat) -> Self {
-        targets.append(.width(relation: relation, anchor: nil, multiplier: 1.0, constant: constant))
+    func width(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.width(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
     
@@ -279,17 +317,20 @@ final class ConstraintMaker {
     ///   - anchor: 기준이 될 NSLayoutDimension
     ///   - multiplier: 비율 (기본값: 1.0)
     ///   - constant: 추가 크기 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func height(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> Self {
-        targets.append(.height(relation: .equal, anchor: anchor, multiplier: multiplier, constant: constant))
+    func height(_ anchor: NSLayoutDimension, multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.height(relation: .equal, anchor: anchor, multiplier: multiplier, constant: constant, priority: priority))
         return self
     }
     
     /// 고정된 높이 크기를 설정합니다.
-    /// - Parameter constant: 높이 크기 (기본값: 0)
+    /// - Parameters:
+    ///   - constant: 높이 크기 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func height(_ constant: CGFloat = 0) -> Self {
-        targets.append(.height(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant))
+    func height(_ constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.height(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
     
@@ -297,20 +338,23 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - relation: 제약 조건 관계 (NSLayoutConstraint.Relation)
     ///   - constant: 높이 크기
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func height(_ relation: NSLayoutConstraint.Relation, constant: CGFloat) -> Self {
-        targets.append(.height(relation: relation, anchor: nil, multiplier: 1.0, constant: constant))
+    func height(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.height(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
     
     // MARK: Size
     
     /// 너비와 높이를 정사각형 크기로 동일하게 설정합니다.
-    /// - Parameter constant: 너비 및 높이 크기
+    /// - Parameters:
+    ///   - constant: 너비 및 높이 크기
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func size(_ constant: CGFloat) -> Self {
-        targets.append(.width(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant))
-        targets.append(.height(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant))
+    func size(_ constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.width(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
+        targets.append(.height(relation: .equal, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
     
@@ -318,10 +362,11 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - relation: 제약 조건 관계 (NSLayoutConstraint.Relation)
     ///   - constant: 너비 및 높이 크기
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func size(_ relation: NSLayoutConstraint.Relation, constant: CGFloat) -> Self {
-        targets.append(.width(relation: relation, anchor: nil, multiplier: 1.0, constant: constant))
-        targets.append(.height(relation: relation, anchor: nil, multiplier: 1.0, constant: constant))
+    func size(_ relation: NSLayoutConstraint.Relation, constant: CGFloat, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.width(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
+        targets.append(.height(relation: relation, anchor: nil, multiplier: 1.0, constant: constant, priority: priority))
         return self
     }
     
@@ -329,10 +374,11 @@ final class ConstraintMaker {
     /// - Parameters:
     ///   - multiplier: Superview 대비 크기 비율 (기본값: 1.0)
     ///   - constant: 추가 오프셋 크기 (기본값: 0)
+    ///   - priority: 제약 조건 우선순위 (기본값: .required)
     @discardableResult
-    func sizeToFill(multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> Self {
-        targets.append(.width(relation: .equal, anchor: view?.superview?.widthAnchor, multiplier: multiplier, constant: constant))
-        targets.append(.height(relation: .equal, anchor: view?.superview?.heightAnchor, multiplier: multiplier, constant: constant))
+    func sizeToFill(multiplier: CGFloat = 1.0, constant: CGFloat = 0, priority: UILayoutPriority = .required) -> Self {
+        targets.append(.width(relation: .equal, anchor: view?.superview?.widthAnchor, multiplier: multiplier, constant: constant, priority: priority))
+        targets.append(.height(relation: .equal, anchor: view?.superview?.heightAnchor, multiplier: multiplier, constant: constant, priority: priority))
         return self
     }
     
@@ -349,22 +395,22 @@ final class ConstraintMaker {
         
         for action in targets {
             switch action {
-            case .top(let anchor, let constant):
-                applyYAxis(view: view, attribute: .top, anchor: anchor, constant: constant, isActive: isActive)
-            case .bottom(let anchor, let constant):
-                applyYAxis(view: view, attribute: .bottom, anchor: anchor, constant: constant, isActive: isActive)
-            case .leading(let anchor, let constant):
-                applyXAxis(view: view, attribute: .leading, anchor: anchor, constant: constant, isActive: isActive)
-            case .trailing(let anchor, let constant):
-                applyXAxis(view: view, attribute: .trailing, anchor: anchor, constant: constant, isActive: isActive)
-            case .centerX(let anchor, let constant):
-                applyCenterX(view: view, anchor: anchor, constant: constant, isActive: isActive)
-            case .centerY(let anchor, let constant):
-                applyCenterY(view: view, anchor: anchor, constant: constant, isActive: isActive)
-            case .width(let relation, let anchor, let multiplier, let constant):
-                applyDimension(view: view, attribute: .width, relation: relation, anchor: anchor, multiplier: multiplier, constant: constant, isActive: isActive)
-            case .height(let relation, let anchor, let multiplier, let constant):
-                applyDimension(view: view, attribute: .height, relation: relation, anchor: anchor, multiplier: multiplier, constant: constant, isActive: isActive)
+            case .top(let anchor, let constant, let priority):
+                applyYAxis(view: view, attribute: .top, anchor: anchor, constant: constant, priority: priority, isActive: isActive)
+            case .bottom(let anchor, let constant, let priority):
+                applyYAxis(view: view, attribute: .bottom, anchor: anchor, constant: constant, priority: priority, isActive: isActive)
+            case .leading(let anchor, let constant, let priority):
+                applyXAxis(view: view, attribute: .leading, anchor: anchor, constant: constant, priority: priority, isActive: isActive)
+            case .trailing(let anchor, let constant, let priority):
+                applyXAxis(view: view, attribute: .trailing, anchor: anchor, constant: constant, priority: priority, isActive: isActive)
+            case .centerX(let anchor, let constant, let priority):
+                applyCenterX(view: view, anchor: anchor, constant: constant, priority: priority, isActive: isActive)
+            case .centerY(let anchor, let constant, let priority):
+                applyCenterY(view: view, anchor: anchor, constant: constant, priority: priority, isActive: isActive)
+            case .width(let relation, let anchor, let multiplier, let constant, let priority):
+                applyDimension(view: view, attribute: .width, relation: relation, anchor: anchor, multiplier: multiplier, constant: constant, priority: priority, isActive: isActive)
+            case .height(let relation, let anchor, let multiplier, let constant, let priority):
+                applyDimension(view: view, attribute: .height, relation: relation, anchor: anchor, multiplier: multiplier, constant: constant, priority: priority, isActive: isActive)
             }
         }
     }
@@ -377,12 +423,14 @@ final class ConstraintMaker {
         attribute: NSLayoutConstraint.Attribute,
         anchor: NSLayoutYAxisAnchor?,
         constant: CGFloat,
+        priority: UILayoutPriority,
         isActive: Bool
     ) {
         if mode == .update, anchor == nil {
             let targetConstraints = findConstraints(in: view, attribute: attribute)
             targetConstraints.forEach {
                 $0.constant = constant
+                $0.priority = priority
                 $0.isActive = isActive
             }
         } else {
@@ -390,6 +438,7 @@ final class ConstraintMaker {
             guard let targetAnchor = anchor ?? superviewAnchor else { return }
             let viewAnchor = (attribute == .top) ? view.topAnchor : view.bottomAnchor
             let constraint = viewAnchor.constraint(equalTo: targetAnchor, constant: constant)
+            constraint.priority = priority
             constraint.isActive = isActive
         }
     }
@@ -400,12 +449,14 @@ final class ConstraintMaker {
         attribute: NSLayoutConstraint.Attribute,
         anchor: NSLayoutXAxisAnchor?,
         constant: CGFloat,
+        priority: UILayoutPriority,
         isActive: Bool
     ) {
         if mode == .update, anchor == nil {
             let targetConstraints = findConstraints(in: view, attribute: attribute)
             targetConstraints.forEach {
                 $0.constant = constant
+                $0.priority = priority
                 $0.isActive = isActive
             }
         } else {
@@ -413,6 +464,7 @@ final class ConstraintMaker {
             guard let targetAnchor = anchor ?? superviewAnchor else { return }
             let viewAnchor = (attribute == .leading) ? view.leadingAnchor : view.trailingAnchor
             let constraint = viewAnchor.constraint(equalTo: targetAnchor, constant: constant)
+            constraint.priority = priority
             constraint.isActive = isActive
         }
     }
@@ -422,17 +474,20 @@ final class ConstraintMaker {
         view: UIView,
         anchor: NSLayoutXAxisAnchor?,
         constant: CGFloat,
+        priority: UILayoutPriority,
         isActive: Bool
     ) {
         if mode == .update, anchor == nil {
             let targetConstraints = findConstraints(in: view, attribute: .centerX)
             targetConstraints.forEach {
                 $0.constant = constant
+                $0.priority = priority
                 $0.isActive = isActive
             }
         } else {
             guard let targetAnchor = anchor ?? view.superview?.centerXAnchor else { return }
             let constraint = view.centerXAnchor.constraint(equalTo: targetAnchor, constant: constant)
+            constraint.priority = priority
             constraint.isActive = isActive
         }
     }
@@ -442,17 +497,20 @@ final class ConstraintMaker {
         view: UIView,
         anchor: NSLayoutYAxisAnchor?,
         constant: CGFloat,
+        priority: UILayoutPriority,
         isActive: Bool
     ) {
         if mode == .update, anchor == nil {
             let targetConstraints = findConstraints(in: view, attribute: .centerY)
             targetConstraints.forEach {
                 $0.constant = constant
+                $0.priority = priority
                 $0.isActive = isActive
             }
         } else {
             guard let targetAnchor = anchor ?? view.superview?.centerYAnchor else { return }
             let constraint = view.centerYAnchor.constraint(equalTo: targetAnchor, constant: constant)
+            constraint.priority = priority
             constraint.isActive = isActive
         }
     }
@@ -465,6 +523,7 @@ final class ConstraintMaker {
         anchor: NSLayoutDimension?,
         multiplier: CGFloat,
         constant: CGFloat,
+        priority: UILayoutPriority,
         isActive: Bool
     ) {
         if mode == .update {
@@ -473,6 +532,7 @@ final class ConstraintMaker {
             }
             targetConstraints.forEach {
                 $0.constant = constant
+                $0.priority = priority
                 $0.isActive = isActive
             }
         } else {
@@ -503,6 +563,7 @@ final class ConstraintMaker {
                 }
             }
             
+            constraint.priority = priority
             constraint.isActive = isActive
         }
     }
