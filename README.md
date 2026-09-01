@@ -133,10 +133,9 @@ exampleView.makeConstraint
 ConstraintMaker
 ├── Package.swift                   # SPM 패키지 매니페스트
 ├── Sources                         # SPM 패키지 소스 코드 (라이브러리 타겟)
-│   └── ConstraintMaker
-│       ├── ConstraintMaker.swift      # 핵심 레이아웃 엔진 클래스
-│       └── UIView+ConstraintMaker.swift # UIView 확장 프로퍼티 및 메서드
-└── ConstraintMaker                 # 예제 앱 프로젝트
+│   ├── ConstraintMaker.swift      # 핵심 레이아웃 엔진 클래스
+│   └── UIView+ConstraintMaker.swift # UIView 확장 프로퍼티 및 메서드
+└── Example                         # 예제 앱 프로젝트
     ├── Application
     │   ├── AppDelegate.swift
     │   └── SceneDelegate.swift

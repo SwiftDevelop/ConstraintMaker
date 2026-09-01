@@ -22,7 +22,7 @@ let package = Package(
     targets: [
         .target(
             name: "ConstraintMaker",
-            path: "Sources/ConstraintMaker"
+            path: "Sources"
         )
     ]
 )

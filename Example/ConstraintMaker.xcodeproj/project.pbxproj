@@ -26,7 +26,7 @@
 			exceptions = (
 				859A5360303D1F2900477051 /* Exceptions for "ConstraintMaker" folder in "ConstraintMaker" target */,
 			);
-			path = ConstraintMaker;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
